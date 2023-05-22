@@ -3,8 +3,7 @@
 
 ### initialization - shouldn't need to touch
 set -e
-#export CASM_BUILD_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-export CASM_BUILD_DIR=/app/test_on_casm_tripletNeutrality/
+export CASM_BUILD_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 . $CASM_BUILD_DIR/build_scripts/install-functions.sh
 detect_os
 check_var "CONDA_PREFIX" "Must have the conda environment activated"
