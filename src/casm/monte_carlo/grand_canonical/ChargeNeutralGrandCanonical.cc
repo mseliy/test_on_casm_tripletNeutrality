@@ -169,7 +169,7 @@ namespace CASM {
         // int n_Li = 16;
         
         // Zeyu: 2 mutations at the same time; pick one Na/Va and one Si/P with the same occupancy and flip them together
-        // Yan: modified from Jerry's 3 mutations
+        // Yan: modified from Jerry's to adapt a 3 mutations case
         do{
           // Randomly pick a site that's allowed more than one occupant
             random_variable_site_1 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
@@ -189,18 +189,18 @@ namespace CASM {
             current_occupant_1 = configdof().occ(mutating_site_1);
             current_occupant_2 = configdof().occ(mutating_site_2);
             current_occupant_3 = configdof().occ(mutating_site_3);
-      std::cout << "Random variable site 1: " << random_variable_site_1 << std::endl;
-      std::cout << "Random variable site 2: " << random_variable_site_2 << std::endl;
-      std::cout << "Random variable site 3: " << random_variable_site_3 << std::endl;
-      std::cout << "Mutating site 1: " << mutating_site_1 << std::endl;
-      std::cout << "Mutating site 2: " << mutating_site_2 << std::endl;
-      std::cout << "Mutating site 3: " << mutating_site_3 << std::endl;
-      std::cout << "Sublat 1: " << sublat_1 << std::endl;
-      std::cout << "Sublat 2: " << sublat_2 << std::endl;
-      std::cout << "Sublat 3: " << sublat_3 << std::endl;
-      std::cout << "Current occupant 1: " << current_occupant_1 << std::endl;
-      std::cout << "Current occupant 2: " << current_occupant_2 << std::endl;
-      std::cout << "Current occupant 3: " << current_occupant_3 << std::endl;
+      // std::cout << "Random variable site 1: " << random_variable_site_1 << std::endl;
+      // std::cout << "Random variable site 2: " << random_variable_site_2 << std::endl;
+      // std::cout << "Random variable site 3: " << random_variable_site_3 << std::endl;
+      // std::cout << "Mutating site 1: " << mutating_site_1 << std::endl;
+      // std::cout << "Mutating site 2: " << mutating_site_2 << std::endl;
+      // std::cout << "Mutating site 3: " << mutating_site_3 << std::endl;
+      // std::cout << "Sublat 1: " << sublat_1 << std::endl;
+      // std::cout << "Sublat 2: " << sublat_2 << std::endl;
+      // std::cout << "Sublat 3: " << sublat_3 << std::endl;
+      // std::cout << "Current occupant 1: " << current_occupant_1 << std::endl;
+      // std::cout << "Current occupant 2: " << current_occupant_2 << std::endl;
+      // std::cout << "Current occupant 3: " << current_occupant_3 << std::endl;
           }
 
         // Yan: need to check the following line
@@ -282,7 +282,10 @@ namespace CASM {
                    << "    dx_dn: \n" << Mpinv << "\n"
                    << "    param_chem_pot.transpose() * dx_dn: \n" << param_chem_pot.transpose()*Mpinv << "\n"
                    << "    param_chem_pot.transpose() * dx_dn * dN: " << param_chem_pot.transpose()*Mpinv *m_event.dN()[0].cast<double>() << "\n"
+                   
                    << "Swap step 1: d(Nunit * param_chem_pot * x): " << exchange_chem_pot(new_species_1, curr_species_1) << "\n"
+                   << "  d(Ef1): " << m_event.dEf()[0] << "\n"
+                   << "  d(Epot1): " << m_event.dEf()[0] - exchange_chem_pot(new_species_1, curr_species_1) << "\n"
 
                    << "Swap step 2: d(Nunit * param_chem_pot * x): " << exchange_chem_pot(new_species_2, curr_species_2) << "\n"
                    << "  d(Ef2): " << m_event.dEf()[1] << "\n"
@@ -792,7 +795,7 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
         // ---- set OccMod --------------
         event.occupational_change()[1].set(mutating_sites[1], sublats[1], new_occs[1]);
         // ---- set dspecies --------------
-        for(int i = 0; i < event.dN()[0].size(); ++i) {
+        for(int i = 0; i < event.dN()[1].size(); ++i) {
           event.set_dN(i, 0);
         }
         Index curr_species_2 = m_site_swaps.sublat_to_mol()[sublats[1]][curr_occs[1]];
@@ -817,7 +820,7 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
         // ---- set OccMod --------------
         event.occupational_change()[2].set(mutating_sites[2], sublats[2], new_occs[2]);
         // ---- set dspecies --------------
-        for(int i = 0; i < event.dN()[0].size(); ++i) {
+        for(int i = 0; i < event.dN()[2].size(); ++i) {
           event.set_dN(i, 0);
         }
         Index curr_species_3 = m_site_swaps.sublat_to_mol()[sublats[2]][curr_occs[2]];
