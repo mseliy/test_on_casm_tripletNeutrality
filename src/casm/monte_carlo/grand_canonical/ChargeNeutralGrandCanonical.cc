@@ -172,16 +172,16 @@ namespace CASM {
         // Yan: modified from Jerry's to adapt a 3 mutations case
         do{
           // Randomly pick a site that's allowed more than one occupant
-            // random_variable_site_1 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
-            // random_variable_site_2 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
-            // random_variable_site_3 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
+            random_variable_site_1 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
+            random_variable_site_2 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
+            random_variable_site_3 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
 
             // random_variable_site_1 = _mtrand().randInt(16);
             // random_variable_site_2 = _mtrand().randInt(16) + 64;
             // random_variable_site_3 = _mtrand().randInt(64) + 80;   
-            random_variable_site_1 = _mtrand().randInt(64) + 80; 
-            random_variable_site_2 = _mtrand().randInt(64) + 80; 
-            random_variable_site_3 = _mtrand().randInt(64) + 80; 
+            // random_variable_site_1 = _mtrand().randInt(64) + 80; 
+            // random_variable_site_2 = _mtrand().randInt(64) + 80; 
+            // random_variable_site_3 = _mtrand().randInt(64) + 80; 
 
           // Determine what that site's linear index is and what the sublattice index is
             mutating_site_1 = m_site_swaps.variable_sites()[random_variable_site_1];
@@ -213,17 +213,17 @@ namespace CASM {
         //   ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));       
     
 
-    // Yan: if all O/S
-        while (!(((sublat_1 >= 20 && sublat_1 < 36 && sublat_2 >= 20 && sublat_2 < 36 && sublat_3 >= 20 && sublat_3 < 36)) && 
-          ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));
+    // // Yan: if all O/S
+    //     while (!(((sublat_1 >= 20 && sublat_1 < 36 && sublat_2 >= 20 && sublat_2 < 36 && sublat_3 >= 20 && sublat_3 < 36)) && 
+    //       ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));
 
-        // while (!(((sublat_1 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_3 >= 20 && sublat_3 < 36) ||
-        //   (sublat_1 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_2 >= 20 && sublat_2 < 36) ||
-        //   (sublat_2 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_3 >= 20 && sublat_3 < 36)  ||
-        //   (sublat_2 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_1 >= 20 && sublat_1 < 36)  ||
-        //   (sublat_3 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_2 >= 20 && sublat_2 < 36)  ||
-        //   (sublat_3 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_1 >= 20 && sublat_1 < 36)) && 
-        //   ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));          
+        while (!(((sublat_1 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_3 >= 20 && sublat_3 < 36) ||
+          (sublat_1 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_2 >= 20 && sublat_2 < 36) ||
+          (sublat_2 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_3 >= 20 && sublat_3 < 36)  ||
+          (sublat_2 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_1 >= 20 && sublat_1 < 36)  ||
+          (sublat_3 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_2 >= 20 && sublat_2 < 36)  ||
+          (sublat_3 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_1 >= 20 && sublat_1 < 36)) && 
+          ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));          
 
           // std::cout << "Current occupant 1: " << current_occupant_1 << std::endl;
           // std::cout << "Current occupant 2: " << current_occupant_2 << std::endl;
