@@ -172,9 +172,16 @@ namespace CASM {
         // Yan: modified from Jerry's to adapt a 3 mutations case
         do{
           // Randomly pick a site that's allowed more than one occupant
-            random_variable_site_1 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
-            random_variable_site_2 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
-            random_variable_site_3 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
+            // random_variable_site_1 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
+            // random_variable_site_2 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
+            // random_variable_site_3 = _mtrand().randInt(m_site_swaps.variable_sites().size() - 1);
+
+            // random_variable_site_1 = _mtrand().randInt(16);
+            // random_variable_site_2 = _mtrand().randInt(16) + 64;
+            // random_variable_site_3 = _mtrand().randInt(64) + 80;   
+            random_variable_site_1 = _mtrand().randInt(64) + 80; 
+            random_variable_site_2 = _mtrand().randInt(64) + 80; 
+            random_variable_site_3 = _mtrand().randInt(64) + 80; 
 
           // Determine what that site's linear index is and what the sublattice index is
             mutating_site_1 = m_site_swaps.variable_sites()[random_variable_site_1];
@@ -189,30 +196,41 @@ namespace CASM {
             current_occupant_1 = configdof().occ(mutating_site_1);
             current_occupant_2 = configdof().occ(mutating_site_2);
             current_occupant_3 = configdof().occ(mutating_site_3);
-      // std::cout << "Random variable site 1: " << random_variable_site_1 << std::endl;
-      // std::cout << "Random variable site 2: " << random_variable_site_2 << std::endl;
-      // std::cout << "Random variable site 3: " << random_variable_site_3 << std::endl;
-      // std::cout << "Mutating site 1: " << mutating_site_1 << std::endl;
-      // std::cout << "Mutating site 2: " << mutating_site_2 << std::endl;
-      // std::cout << "Mutating site 3: " << mutating_site_3 << std::endl;
-      // std::cout << "Sublat 1: " << sublat_1 << std::endl;
-      // std::cout << "Sublat 2: " << sublat_2 << std::endl;
-      // std::cout << "Sublat 3: " << sublat_3 << std::endl;
-      // std::cout << "Current occupant 1: " << current_occupant_1 << std::endl;
-      // std::cout << "Current occupant 2: " << current_occupant_2 << std::endl;
-      // std::cout << "Current occupant 3: " << current_occupant_3 << std::endl;
-          }
 
-        // Yan: need to check the following line
-        //while (!(((sublat_1 <= n_Na && sublat_2 > n_Na) || (sublat_1 > n_Na && sublat_2 <= n_Na)) && (current_occupant_1 == current_occupant_2)));
-        while (!(((sublat_1 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_3 >= 20 && sublat_3 < 36) ||
-          (sublat_1 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_2 >= 20 && sublat_2 < 36) ||
-          (sublat_2 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_3 >= 20 && sublat_3 < 36)  ||
-          (sublat_2 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_1 >= 20 && sublat_1 < 36)  ||
-          (sublat_3 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_2 >= 20 && sublat_2 < 36)  ||
-          (sublat_3 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_1 >= 20 && sublat_1 < 36)) && 
+            //   if (!((sublat_1 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_3 >= 20 && sublat_3 < 36) ||
+            //   (sublat_1 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_2 >= 20 && sublat_2 < 36) ||
+            //   (sublat_2 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_3 >= 20 && sublat_3 < 36)  ||
+            //   (sublat_2 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_1 >= 20 && sublat_1 < 36)  ||
+            //   (sublat_3 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_2 >= 20 && sublat_2 < 36)  ||
+            //   (sublat_3 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_1 >= 20 && sublat_1 < 36)) &&
+            //   ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))) {
+            // // The loop condition is not satisfied, do nothing
+            //    continue;
+            //   }
+          
+          }  
+        // while (!((sublat_1 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_3 >= 20 && sublat_3 < 36) && 
+        //   ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));       
+    
+
+    // Yan: if all O/S
+        while (!(((sublat_1 >= 20 && sublat_1 < 36 && sublat_2 >= 20 && sublat_2 < 36 && sublat_3 >= 20 && sublat_3 < 36)) && 
           ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));
 
+        // while (!(((sublat_1 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_3 >= 20 && sublat_3 < 36) ||
+        //   (sublat_1 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_2 >= 20 && sublat_2 < 36) ||
+        //   (sublat_2 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_3 >= 20 && sublat_3 < 36)  ||
+        //   (sublat_2 < 16 && sublat_3 >= 16 && sublat_3 < 20 && sublat_1 >= 20 && sublat_1 < 36)  ||
+        //   (sublat_3 < 16 && sublat_1 >= 16 && sublat_1 < 20 && sublat_2 >= 20 && sublat_2 < 36)  ||
+        //   (sublat_3 < 16 && sublat_2 >= 16 && sublat_2 < 20 && sublat_1 >= 20 && sublat_1 < 36)) && 
+        //   ((current_occupant_1 == current_occupant_2) && (current_occupant_2 == current_occupant_3))));          
+
+          // std::cout << "Current occupant 1: " << current_occupant_1 << std::endl;
+          // std::cout << "Current occupant 2: " << current_occupant_2 << std::endl;
+          // std::cout << "Current occupant 3: " << current_occupant_3 << std::endl;   
+          // std::cout << "m_site_swaps.variable_sites(): " << m_site_swaps.variable_sites() << std::endl; 
+          // std::cout << "m_site_swaps.variable_sites().size(): " << m_site_swaps.variable_sites().size() << std::endl;
+                  
         // Randomly pick a new occupant for the mutating site
         const std::vector<int> &possible_mutation_1 = m_site_swaps.possible_swap()[sublat_1][current_occupant_1];
         int new_occupant_1 = possible_mutation_1[_mtrand().randInt(possible_mutation_1.size() - 1)];
@@ -225,6 +243,7 @@ namespace CASM {
             const auto &site_occ_1 = primclex().get_prim().basis[sublat_1].site_occupant();
             const auto &site_occ_2 = primclex().get_prim().basis[sublat_2].site_occupant();
             const auto &site_occ_3 = primclex().get_prim().basis[sublat_3].site_occupant();
+
             _log().custom("Propose charge neutral grand canonical event");
 
             _log()  << "  Mutating site 1 (linear index): " << mutating_site_1 << "\n"
@@ -258,6 +277,7 @@ namespace CASM {
 
         // Update delta properties in m_event
         // Zeyu: Pairs are passing into _update_deltas()
+        // Yan: Modify from Jerry's. Now triplets are passing into _update_deltas()
         _update_deltas(m_event, mutating_sites, sublats, current_occupants, new_occupants);
 
         if(debug()) {
@@ -282,7 +302,7 @@ namespace CASM {
                    << "    dx_dn: \n" << Mpinv << "\n"
                    << "    param_chem_pot.transpose() * dx_dn: \n" << param_chem_pot.transpose()*Mpinv << "\n"
                    << "    param_chem_pot.transpose() * dx_dn * dN: " << param_chem_pot.transpose()*Mpinv *m_event.dN()[0].cast<double>() << "\n"
-                   
+
                    << "Swap step 1: d(Nunit * param_chem_pot * x): " << exchange_chem_pot(new_species_1, curr_species_1) << "\n"
                    << "  d(Ef1): " << m_event.dEf()[0] << "\n"
                    << "  d(Epot1): " << m_event.dEf()[0] - exchange_chem_pot(new_species_1, curr_species_1) << "\n"
@@ -301,7 +321,6 @@ namespace CASM {
 
     }
     
-
 	/// \brief Based on a random number, decide if the change in energy from the proposed event is low enough to be accepted.
     bool ChargeNeutralGrandCanonical::check(const EventType &event){
     // change the head file xxevent.hh !!!!!!
@@ -334,12 +353,12 @@ namespace CASM {
           _log() << std::endl;
         }
 
-        // First apply changes to configuration (just a single occupant change)
+        // First apply changes to configuration (three occupants change)
         _configdof().occ(event.occupational_change()[0].site_index()) = event.occupational_change()[0].to_value();
         _configdof().occ(event.occupational_change()[1].site_index()) = event.occupational_change()[1].to_value();
         _configdof().occ(event.occupational_change()[2].site_index()) = event.occupational_change()[2].to_value();
 
-        // Next update all properties that changed from the event // Zeyu: update twice, the volume does not change throughout the simulation
+        // Next update all properties that changed from the event
         _formation_energy() += event.dEf()[0] / supercell().volume();
         _formation_energy() += event.dEf()[1] / supercell().volume();
         _formation_energy() += event.dEf()[2] / supercell().volume();
@@ -357,6 +376,7 @@ namespace CASM {
         _comp_n() += event.dN()[2].cast<double>() / supercell().volume();
 
         return;
+
     }
 
     /// \brief Nothing needs to be done to reject a GrandCanonicalEvent
@@ -580,7 +600,7 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
               _clexulator().calc_delta_point_corr(sublat,
                                             current_occupant,
                                             new_occupant,
-                                           event.dCorr()[1].data());
+                                            event.dCorr()[1].data());
              break;
           case 2:
               _clexulator().calc_delta_point_corr(sublat,
@@ -622,7 +642,7 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
                                                        end);      
          break;
         default:
-    		 throw std::runtime_error("Invalid swapped index");                                         
+    		 throw std::runtime_error("Invalid swapped index");                                       
       } 
      }
     }
@@ -752,6 +772,7 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
     /// <- Zeyu: This is different from GrandCanonical.cc, not finished
     /// do this site by site and then calculate total dEpot and store in ChargeNeutralGrandCanonicalEvent
     /// and use it to for check()
+    /// Yan: Modify from Jerry's
 	void ChargeNeutralGrandCanonical::_update_deltas(EventType &event, 
 						std::vector<Index> &mutating_sites,
 						std::vector<Index> &sublats,
@@ -759,7 +780,7 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
 						std::vector<int> &new_occs) const{
         // reset the flag
         // event.set_is_swapped(false);
-            event.set_current_swap(0);    // Yan: not sure if the following line is correct
+            event.set_current_swap(0);    // Yan: start with case 0
 
         // Site 1
         // ---- set OccMod --------------
@@ -782,14 +803,17 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
 
         // ---- set dpotential_energy --------------
         double dEpot_1 = event.dEf()[0] - m_condition.exchange_chem_pot(new_species_1, curr_species_1);
+
         event.set_dEpot(dEpot_1);
-        // back up site 1 occupation
+        // back up site 1 occupation ????
         event.set_original_occ_first_swap(_configdof().occ(event.occupational_change()[0].site_index()));
+
         // // Site 1 modification finished, update configuration .... ????
-        _configdof().occ(event.occupational_change()[0].site_index()) = event.occupational_change()[0].to_value();
+        _configdof().occ(event.occupational_change()[0].site_index()) = event.occupational_change()[0].to_value(); 
+
         // mark the changes of the first site
       // event.set_is_swapped(true);
-         event.set_current_swap(0);  // ????
+         event.set_current_swap(1);
 
         // Site 2
         // ---- set OccMod --------------
@@ -811,10 +835,11 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
         event.set_dEpot(dEpot_2);
         // Calculate dEpot after two swaps
         event.set_dEpot_swapped_twice(dEpot_1+dEpot_2);
-        // ??
+        // Site 2 modification finished, update configuration...
         _configdof().occ(event.occupational_change()[1].site_index()) = event.occupational_change()[1].to_value();
+
       //  event.set_is_swapped(ture);
-          event.set_current_swap(1);
+          event.set_current_swap(2);
 
         // Site 3
         // ---- set OccMod --------------
@@ -836,10 +861,15 @@ double ChargeNeutralGrandCanonical::lte_grand_canonical_free_energy() const {
         event.set_dEpot(dEpot_3);
         // Calculate dEpot after three swaps
         event.set_dEpot_swapped_threetimes(dEpot_1+dEpot_2+dEpot_3);
-        // Zeyu: change configuration back to origin....
+        // new line: Site 3 modification finished, update configuration...
+        _configdof().occ(event.occupational_change()[2].site_index()) = event.occupational_change()[2].to_value();
+
+        // Zeyu: change configuration back to origin.... -- Yan: similar as Jerry's
+        // Yan: after getting dEpot_swapped_threetimes, change configuration back to origin????
         _configdof().occ(event.occupational_change()[0].site_index()) = event.original_occ_first_swap();
+
        // event.set_is_swapped(false);
-          event.set_current_swap(2);
+          event.set_current_swap(0);
 
     }
 
